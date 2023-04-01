@@ -1,0 +1,4 @@
+require "active_storage_attachments.schema"
+require "active_storage_blobs.schema"
+require "active_storage_variant_records.schema"
+require "users.schema"
