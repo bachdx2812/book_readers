@@ -1,0 +1,6 @@
+create_table "user_books", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  t.bigint :user_id, null: false
+  t.bigint :book_id, null: false
+
+  t.timestamps
+end
