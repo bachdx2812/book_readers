@@ -62,7 +62,9 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.date "birthday"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "secret_jwt_key"
     t.integer "lock_version", null: false
+    t.index ["email", "secret_jwt_key"], name: "index_users_on_email_and_secret_jwt_key"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

@@ -6,5 +6,9 @@ create_table "users", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force
 
   t.timestamps
 
+  t.string :secret_jwt_key
+
   t.integer :lock_version, null: false
+
+  t.index [:email, :secret_jwt_key]
 end

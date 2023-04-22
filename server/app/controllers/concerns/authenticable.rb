@@ -11,16 +11,14 @@ module Authenticable
     begin
       decoded = JsonWebToken.decode(token)
 
-      User.find(decoded[:sub])
+      return User.find_by!(id: decoded[:sub], secret_jwt_key: decoded[:secret_jwt_key])
     rescue StandardError => _e
       return nil
     end
-
-    user
   end
 
   def token
-    authen, token = request.headers["Behemoth-Universal-Authorization"].to_s.split(" ")
+    authen, token = request.headers["Book-Club-Authorization"].to_s.split(" ")
     return unless authen == BEARER_AUTHORIZATION
 
     token

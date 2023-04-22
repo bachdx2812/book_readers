@@ -1,8 +1,8 @@
-return if User.exists?
-
 ActiveRecord::Base.connection.truncate_tables(:users)
 
-User.create!(
-  email: "test@gmail.com",
-  password: "12345678"
-)
+1.upto(10) do |i|
+  User.create!(
+    email: "user_#{i}@gmail.com",
+    password: "12345678"
+  )
+end
