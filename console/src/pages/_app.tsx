@@ -4,6 +4,10 @@ import type { ReactElement, ReactNode } from 'react'
 import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import AuthedLayout from '@/layouts/AuthedLayout'
+import UnauthedLayout from "@/layouts/UnauthedLayout";
+
+import { Provider } from 'react-redux';
+import { wrapper } from '../../store';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
