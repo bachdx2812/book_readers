@@ -1,18 +1,18 @@
-import { Layout } from 'antd';
-const { Content } = Layout;
+import React from 'react';
+import { Layout, Space } from 'antd';
 
-export default function UnauthedLayout({children}: any) {
+const { Header, Footer, Content } = Layout;
+
+export default ({children}: any) => {
   return (
-    <Layout className="layout">
-      <Content
-        className="site-layout-background"
-          style={{
-          margin: '24px 16px',
-          padding: 24,
-        }}
-      >
+    <Space direction="vertical" style={{ width: '100%' }} size={[0, 48]}>
+    <Layout>
+      <Header >Header</Header>
+      <Content >
         { children }
       </Content>
+      <Footer>Footer</Footer>
     </Layout>
-  )
-}
+  </Space>
+  );
+};

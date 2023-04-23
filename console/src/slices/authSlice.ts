@@ -10,7 +10,7 @@ export interface AuthState {
 // Initial state
 const initialState: AuthState = {
   token: "",
-  signedIn: true,
+  signedIn: false,
 };
 
 // Actual Slice
