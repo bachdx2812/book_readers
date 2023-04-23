@@ -1,18 +1,25 @@
 import React from 'react';
-import { Layout, Space } from 'antd';
+import { Layout } from 'antd';
 
-const { Header, Footer, Content } = Layout;
+const {  Footer, Content } = Layout;
 
 export default ({children}: any) => {
   return (
-    <Space direction="vertical" style={{ width: '100%' }} size={[0, 48]}>
-    <Layout>
-      <Header >Header</Header>
+    <Layout className="h-full">
       <Content >
-        { children }
+        <div className="flex min-h-full flex-1">
+          <div className="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
+            { children }
+          </div>
+          <div className="relative hidden w-0 flex-1 lg:block">
+            <img
+              className="absolute inset-0 h-full w-full object-cover"
+              src="https://images.unsplash.com/photo-1496917756835-20cb06e75b4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1908&q=80"
+              alt=""
+            />
+          </div>
+        </div>
       </Content>
-      <Footer>Footer</Footer>
     </Layout>
-  </Space>
   );
 };
