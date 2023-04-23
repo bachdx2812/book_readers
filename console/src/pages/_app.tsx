@@ -18,24 +18,37 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
 }
 
-const getDefaultLayout = function(page: ReactElement) {
-  const token = useSelector((state: RootState) => state.auth.token);
-  console.log(token);
+const AppWrapper = ({ children}: {children: ReactElement}) => {
+  const signedIn = useSelector((state: RootState) => state.auth.signedIn);
 
   return (
-    <UnauthedLayout>
-      { page }
-    </UnauthedLayout>
+    <>
+      {
+        signedIn ? (
+          <AuthedLayout>
+            { children }
+          </AuthedLayout>
+        ) : (
+          <UnauthedLayout>
+            { children }
+          </UnauthedLayout>
+        )
+      }
+    </>
   )
 }
 
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
-  const getLayout = Component.getLayout ?? getDefaultLayout;
-
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        { getLayout(<Component {...pageProps} />)  }
+        { 
+          Component.getLayout ? (
+            <Component {...pageProps} /> 
+          ) : (
+            <AppWrapper children={<Component {...pageProps} /> }/> 
+          )
+        }
       </PersistGate>
     </Provider>
   )

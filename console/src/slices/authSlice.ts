@@ -4,11 +4,13 @@ import { HYDRATE } from "next-redux-wrapper";
 // Type for our state
 export interface AuthState {
   token: string;
+  signedIn: boolean;
 }
 
 // Initial state
 const initialState: AuthState = {
   token: "",
+  signedIn: true,
 };
 
 // Actual Slice
@@ -21,6 +23,9 @@ export const authSlice = createSlice({
     },
     clearToken(state) {
       state.token = "";
+    },
+    setSignedIn(state, action) {
+      state.signedIn = action.payload;
     },
   },
 
