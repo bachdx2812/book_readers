@@ -867,12 +867,22 @@ react-redux@^8.0.5:
     react-is "^18.0.0"
     use-sync-external-store "^1.0.0"
 
+react-thunk@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-thunk/-/react-thunk-1.0.0.tgz#79813d47f31147e81aee841ed5e76a9e3eabc8b1"
+  integrity sha512-OhJ0AdnFASwN4qkQ62X2xCkVPPAKM12Ju7H8jxPt6q9gTwhIRlWuzlbg0RZqYPQ88MX/s5VEvYiTImBMJWspPQ==
+
 react@18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"
   integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==
   dependencies:
     loose-envify "^1.1.0"
+
+redux-persist@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-6.0.0.tgz#b4d2972f9859597c130d40d4b146fecdab51b3a8"
+  integrity sha512-71LLMbUq2r02ng2We9S215LtPu3fY0KgaGE0k8WRgl6RkqxtGfl7HUozz1Dftwsb0D/5mZ8dwAaPbtnzfvbEwQ==
 
 redux-thunk@^2.4.2:
   version "2.4.2"

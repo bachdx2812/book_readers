@@ -6,8 +6,9 @@ import type { AppProps } from 'next/app'
 import AuthedLayout from '@/layouts/AuthedLayout'
 import UnauthedLayout from "@/layouts/UnauthedLayout";
 
-import { Provider } from 'react-redux';
-import { wrapper } from '../../store';
+import { RootState, store, persistor } from "../store";
+import { useSelector, Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -18,15 +19,24 @@ type AppPropsWithLayout = AppProps & {
 }
 
 const getDefaultLayout = function(page: ReactElement) {
+  const token = useSelector((state: RootState) => state.auth.token);
+  console.log(token);
+
   return (
-    <AuthedLayout>
+    <UnauthedLayout>
       { page }
-    </AuthedLayout>
+    </UnauthedLayout>
   )
 }
 
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? getDefaultLayout;
 
-  return getLayout(<Component {...pageProps} />) 
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        { getLayout(<Component {...pageProps} />)  }
+      </PersistGate>
+    </Provider>
+  )
 }
