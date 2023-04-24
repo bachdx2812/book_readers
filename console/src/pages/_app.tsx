@@ -10,6 +10,9 @@ import { RootState, store, persistor } from "../store";
 import { useSelector, Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 
+import { ApolloProvider } from '@apollo/client';
+import { client } from "@/libs/apis"
+
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
 }
@@ -40,16 +43,18 @@ const AppWrapper = ({ children}: {children: ReactElement}) => {
 
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        { 
-          Component.getLayout ? (
-            <Component {...pageProps} /> 
-          ) : (
-            <AppWrapper children={<Component {...pageProps} /> }/> 
-          )
-        }
-      </PersistGate>
-    </Provider>
+    <ApolloProvider client={client}>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          { 
+            Component.getLayout ? (
+              <Component {...pageProps} /> 
+            ) : (
+              <AppWrapper children={<Component {...pageProps} /> }/> 
+            )
+          }
+        </PersistGate>
+      </Provider>
+    </ApolloProvider>
   )
 }
