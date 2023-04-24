@@ -19,7 +19,7 @@
 class User < ApplicationRecord
   devise :database_authenticatable
 
-  def generate_jwt_payload
+  def jwt_payload
     generate_and_save_jwt_key
 
     {

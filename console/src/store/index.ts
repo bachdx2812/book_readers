@@ -8,7 +8,7 @@ import thunk from 'redux-thunk';
 import authReducer from '../slices/authSlice';
 
 const persistConfig = {
-  key: 'project-management-data',
+  key: 'book_rental_development',
   storage,
   whitelist: ['token']
 }

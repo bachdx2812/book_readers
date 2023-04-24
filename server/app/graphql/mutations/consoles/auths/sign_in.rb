@@ -13,7 +13,6 @@ module Mutations
         field :message, String, null: true, description: "Sign In Message"
 
         def resolve(email:, password:, remember_me:)
-          binding.pry
           result = ::Consoles::Auths::SignInService.call(
             email:,
             password:,

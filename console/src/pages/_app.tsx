@@ -23,6 +23,7 @@ type AppPropsWithLayout = AppProps & {
 
 const AppWrapper = ({ children}: {children: ReactElement}) => {
   const signedIn = useSelector((state: RootState) => state.auth.signedIn);
+  console.log(signedIn);
 
   return (
     <>

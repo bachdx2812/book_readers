@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 import { useMutation } from "@apollo/client";
 import { ConsolesSignIn } from "@/graphql/auth";
+import { setSignedIn, setToken } from "@/slices/authSlice";
+import { useRouter } from "next/router";
 
 interface FormTarget {
   name: string;
@@ -9,6 +11,8 @@ interface FormTarget {
 }
 
 export default function Login() {
+  const router = useRouter();
+
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -33,7 +37,24 @@ export default function Login() {
     }));
   };
 
-  const [signIn, { data, loading, error }] = useMutation(ConsolesSignIn);
+  const [signIn, { loading }] = useMutation(ConsolesSignIn);
+
+  const processSignIn = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const result = await signIn({ 
+        variables: {...form },
+      })
+
+      setToken(result.data.consolesSignIn.token);
+      setSignedIn(true);
+      router.push("/")
+
+    } catch(e: any) {
+      console.log(e.message)
+    }
+  }
 
   return (
     <div className="mx-auto w-full max-w-sm lg:w-96">
@@ -52,7 +73,7 @@ export default function Login() {
         <div>
           <form className="space-y-6" onSubmit={e => {
             e.preventDefault();
-            signIn({ variables: { ...form } });
+            processSignIn(e);
           }}>
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
