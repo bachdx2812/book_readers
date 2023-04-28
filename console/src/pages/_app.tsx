@@ -22,13 +22,12 @@ type AppPropsWithLayout = AppProps & {
 }
 
 const AppWrapper = ({ children}: {children: ReactElement}) => {
-  const signedIn = useSelector((state: RootState) => state.auth.signedIn);
-  console.log(signedIn);
+  const token = useSelector((state: RootState) => state.auth.token);
 
   return (
     <>
       {
-        signedIn ? (
+        token ? (
           <AuthedLayout>
             { children }
           </AuthedLayout>

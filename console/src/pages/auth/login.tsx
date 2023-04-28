@@ -2,8 +2,10 @@ import React, { useState } from "react";
 
 import { useMutation } from "@apollo/client";
 import { ConsolesSignIn } from "@/graphql/auth";
-import { setSignedIn, setToken } from "@/slices/authSlice";
+import { setToken } from "@/slices/authSlice";
 import { useRouter } from "next/router";
+
+import { useDispatch } from "react-redux";
 
 interface FormTarget {
   name: string;
@@ -12,6 +14,7 @@ interface FormTarget {
 
 export default function Login() {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const [form, setForm] = useState({
     email: "",
@@ -37,7 +40,7 @@ export default function Login() {
     }));
   };
 
-  const [signIn, { loading }] = useMutation(ConsolesSignIn);
+  const [signIn ] = useMutation(ConsolesSignIn);
 
   const processSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,8 +50,7 @@ export default function Login() {
         variables: {...form },
       })
 
-      setToken(result.data.consolesSignIn.token);
-      setSignedIn(true);
+      dispatch(setToken(result.data.consolesSignIn.token));
       router.push("/")
 
     } catch(e: any) {
