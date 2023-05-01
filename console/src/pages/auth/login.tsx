@@ -2,10 +2,11 @@ import React, { useState } from "react";
 
 import { useMutation } from "@apollo/client";
 import { ConsolesSignIn } from "@/graphql/auth";
-import { setToken } from "@/slices/authSlice";
+
 import { useRouter } from "next/router";
 
-import { useDispatch } from "react-redux";
+import {  useDispatch } from "react-redux";
+import { setToken } from "@/slices/authSlice";
 
 interface FormTarget {
   name: string;
