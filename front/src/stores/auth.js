@@ -1,13 +1,15 @@
 import { defineStore } from "pinia";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 
 export const useAuthStore = defineStore("auth", () => {
-  const token = "";
-  const layout = computed(() => (token ? "DefaultLayout" : "AuthLayout"));
+  const token = ref("");
+  const layout = computed(() =>
+    token.value !== "" ? "DefaultLayout" : "AuthLayout"
+  );
 
   function setToken(tokenValue) {
     token.value = tokenValue;
   }
 
-  return { setToken, layout };
+  return { token, setToken, layout };
 });

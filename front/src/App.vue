@@ -1,5 +1,13 @@
+<template>
+  <component :is="layout">
+    {{ layout }}
+    <router-view></router-view>
+  </component>
+</template>
+
 <script>
-import { defineAsyncComponent, ref } from 'vue'
+import { defineAsyncComponent } from 'vue'
+import { storeToRefs } from 'pinia'
 
 import { useAuthStore } from '@/stores/auth';
 
@@ -10,7 +18,8 @@ export default {
   },
 
   setup() {
-    const { layout } = useAuthStore();
+    const authStore = useAuthStore();
+    const { layout } = storeToRefs(authStore);
 
     return {
       layout
@@ -23,9 +32,4 @@ export default {
 
 </script>
 
-<template>
-  <component :is="layout">
-    <router-view></router-view>
-  </component>
-</template>
 
