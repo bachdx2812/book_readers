@@ -1,0 +1,9 @@
+create_table "user_book_ratings", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  t.bigint :user_id, null: false
+  t.bigint :book_id, null: false
+  t.integer :point, null: false, default: 1
+
+  t.timestamps
+
+  t.index [:user_id, :book_id], unique: true
+end

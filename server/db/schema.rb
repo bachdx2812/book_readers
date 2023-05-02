@@ -48,6 +48,15 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.integer "lock_version", null: false
   end
 
+  create_table "user_book_ratings", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "book_id", null: false
+    t.integer "point", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "book_id"], name: "index_user_book_ratings_on_user_id_and_book_id", unique: true
+  end
+
   create_table "user_books", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "book_id", null: false
