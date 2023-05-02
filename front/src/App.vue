@@ -1,7 +1,7 @@
 <script>
-import { defineAsyncComponent } from 'vue'
+import { defineAsyncComponent, ref } from 'vue'
 
-import { ref } from 'vue'
+import { useAuthStore } from '@/stores/auth';
 
 export default {
   components: {
@@ -10,9 +10,7 @@ export default {
   },
 
   setup() {
-    const layout = ref("");
-
-    layout.value = "DefaultLayout";
+    const { layout } = useAuthStore();
 
     return {
       layout
