@@ -1,5 +1,8 @@
 {
   "name": "front",
+  "engines": {
+    "node": "19.6.1"
+  },
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,7 +12,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.14",
+    "@vue/apollo-composable": "^4.0.0-beta.4",
+    "@vue/apollo-util": "^4.0.0-beta.4",
     "@vueuse/core": "^10.1.2",
+    "apollo-link": "^1.2.14",
+    "graphql": "^16.6.0",
+    "graphql-tag": "^2.12.6",
     "pinia": "^2.0.35",
     "vue": "^3.2.47",
     "vue-router": "4"

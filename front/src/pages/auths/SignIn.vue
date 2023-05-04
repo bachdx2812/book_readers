@@ -35,11 +35,26 @@
 <script>
 import { useAuthStore } from '@/stores/auth';
 import { useRouter } from 'vue-router'
+import { watch } from 'vue';
+
+import { gql } from "graphql-tag"
+
+import { useQuery } from "@vue/apollo-composable"
 
 export default {
   setup() {
     const { setToken } = useAuthStore();
     const router = useRouter()
+
+    const { result } = useQuery(gql`
+      query {
+        hello
+      }
+    `)
+
+    watch(() => {
+      console.log(result.value)
+    })
 
     const login = () => {
       // TODO
@@ -49,7 +64,7 @@ export default {
     }
 
     return {
-      login
+      login,
     }
   }
 }

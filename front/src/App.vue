@@ -25,9 +25,6 @@ export default {
       layout
     }
   },
-
-  mounted() {
-  }
 }
 
 </script>
