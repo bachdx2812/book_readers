@@ -1,10 +1,11 @@
 import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client/core";
 import { onError } from "@apollo/client/link/error";
-import { logErrorMessages } from "@vue/apollo-util";
-import { concat } from "apollo-link";
 import { setContext } from "@apollo/client/link/context";
 
 import { useAuthStore } from "@/stores/auth";
+import { useGlobalStore } from "@/stores/global";
+
+import { get } from "lodash";
 
 // Create an http link:
 const httpLink = new HttpLink({
@@ -39,6 +40,8 @@ const UNAUTHORIZED_EXCEPTION_TYPE = "unauthorized";
 const errorHandler = (error) => {
   const { graphQLErrors, networkError } = error;
 
+  const globalStore = useGlobalStore();
+
   if (networkError) {
     switch (networkError.statusCode) {
       case 401:
@@ -51,7 +54,11 @@ const errorHandler = (error) => {
     }
   }
 
-  const errMessages = _.get(error, "response.errors[0].errors");
+  const errMessage = get(error, "response.errors[0].message");
+
+  if (errMessage) {
+    globalStore.setErrorMessage(errMessage);
+  }
 
   if (graphQLErrors) {
     graphQLErrors.forEach((error) => {
@@ -70,10 +77,11 @@ const errorHandler = (error) => {
         return;
       }
 
-      if (ctx.app.$toast) ctx.app.$toast.error(message);
+      // if (ctx.app.$toast) ctx.app.$toast.error(message);
 
       switch (status) {
         case AUTHORIZATION_ERROR:
+          console.log("authorization error");
           break;
         case FORBIDDEN_ERROR:
           // ctx.error({
@@ -94,6 +102,7 @@ const errorHandler = (error) => {
           // });
           break;
         case USER_INPUT_ERROR:
+          console.log("user error");
           // ctx.store.dispatch("global/setValidationErrors", errMessages);
           break;
         default:
@@ -106,5 +115,5 @@ const errorHandler = (error) => {
 // Create the apollo client
 export const apolloClient = new ApolloClient({
   cache: new InMemoryCache(),
-  link: concat(authLink, httpLink, errorLink),
+  link: errorLink.concat(authLink).concat(httpLink),
 });

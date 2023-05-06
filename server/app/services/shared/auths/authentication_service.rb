@@ -1,4 +1,4 @@
-module Consoles
+module Shared
   module Auths
     class AuthenticationService
       include Interactor

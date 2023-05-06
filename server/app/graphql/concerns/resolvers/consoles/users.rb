@@ -1,4 +1,4 @@
-module Resolvers 
+module Resolvers
   module Consoles
     module Users
       extend ActiveSupport::Concern

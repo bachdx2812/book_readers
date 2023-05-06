@@ -1,6 +1,8 @@
 <template>
   <form class="w-full max-w-md p-8">
     <h2 class="text-2xl font-bold mb-8">Sign In</h2>
+    <h1>Error: {{ errMessage }}</h1>
+    <h1>Error: {{ errMessage1 }}</h1>
     <div class="mb-4">
       <label class="block text-gray-700 font-bold mb-2" for="username">
         Username
@@ -33,38 +35,52 @@
 </template>
 
 <script>
-import { useAuthStore } from '@/stores/auth';
+import { computed } from "vue";
 import { useRouter } from 'vue-router'
-import { watch } from 'vue';
 
-import { gql } from "graphql-tag"
+import { storeToRefs } from 'pinia'
+import { useGlobalStore } from "@/stores/global";
 
-import { useQuery } from "@vue/apollo-composable"
+import { useMutation } from '@vue/apollo-composable'
+import gql from 'graphql-tag'
 
 export default {
   setup() {
-    const { setToken } = useAuthStore();
-    const router = useRouter()
+    const globalStore = useGlobalStore();
+    // const router = useRouter()
 
-    const { result } = useQuery(gql`
-      query {
-        hello
+    const { mutate: signIn } = useMutation(gql`
+      mutation ($email: String!, $password: String!, $rememberMe: Boolean) {
+        frontsSignIn(
+          email: $email,
+          password: $password,
+          rememberMe: $rememberMe
+        ) {
+          token
+          message
+        }
       }
-    `)
-
-    watch(() => {
-      console.log(result.value)
+    `, {
+      fetchPolicy: 'no-cache',
     })
 
     const login = () => {
-      // TODO
-      setToken("abcdef");
+      signIn({
+        email: "test@mail.com",
+        password: "testtest"
+      });
 
-      router.push("/")
+      // router.push("/")
     }
+
+    const errMessage1 = computed(() => globalStore.errMessage);
+
+    const { errMessage } = storeToRefs(globalStore)
 
     return {
       login,
+      errMessage,
+      errMessage1
     }
   }
 }

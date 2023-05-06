@@ -1,6 +1,7 @@
 require "json_web_token"
 
 BEARER_AUTHORIZATION = "Bearer"
+HEADER = "Book-Club-Authorization"
 
 module Authenticable
   private
@@ -18,7 +19,7 @@ module Authenticable
   end
 
   def token
-    authen, token = request.headers["Book-Club-Authorization"].to_s.split(" ")
+    authen, token = request.headers[HEADER].to_s.split(" ")
     return unless authen == BEARER_AUTHORIZATION
 
     token

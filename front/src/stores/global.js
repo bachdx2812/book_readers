@@ -1,3 +1,4 @@
+import { ref } from "vue";
 import { defineStore } from "pinia";
 import { get } from "lodash";
 
@@ -9,5 +10,13 @@ export const useGlobalStore = defineStore("global", () => {
     return get(validationErrors, name, []);
   }
 
-  return { errorMessage, getErrors };
+  function setErrorMessage(message) {
+    errorMessage.value = message;
+  }
+
+  return {
+    errorMessage,
+    getErrors,
+    setErrorMessage,
+  };
 });

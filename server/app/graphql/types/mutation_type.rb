@@ -2,7 +2,7 @@ module Types
   class MutationType < Types::BaseObject
     description "MutationType"
 
-    #################### CONSOLE ##########################
-    field :consoles_sign_in, mutation: ::Mutations::Consoles::Auths::SignIn, description: "Sign In"
+    include Mutations::ConsolesTypes
+    include Mutations::FrontsTypes
   end
 end

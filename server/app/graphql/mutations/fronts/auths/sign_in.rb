@@ -1,9 +1,9 @@
 module Mutations
-  module Consoles
+  module Fronts
     module Auths
       class SignIn < BaseMutation
-        graphql_name "ConsolesAuthsSignIn"
-        description "ConsolesAuthsSignIn"
+        graphql_name "FrontsAuthsSignIn"
+        description "FrontsAuthsSignIn"
 
         argument :email, String, required: true, description: "Login Key"
         argument :password, String, required: true, description: "Password"
@@ -12,8 +12,8 @@ module Mutations
         type ::Types::Payloads::SignInType
         field :message, String, null: true, description: "Sign In Message"
 
-        def resolve(email:, password:, remember_me:)
-          result = ::Consoles::Auths::SignInService.call(
+        def resolve(email:, password:, remember_me: false)
+          result = ::Fronts::Auths::SignInService.call(
             email:,
             password:,
             remember_me:,

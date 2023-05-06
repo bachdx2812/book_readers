@@ -1,6 +1,6 @@
 require "json_web_token"
 
-module Consoles
+module Shared
   module Auths
     class GenerateTokenService
       include Interactor

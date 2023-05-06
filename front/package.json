@@ -19,6 +19,7 @@
     "apollo-link": "^1.2.14",
     "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",
+    "lodash": "^4.17.21",
     "pinia": "^2.0.35",
     "vue": "^3.2.47",
     "vue-router": "4"

@@ -711,3 +711,6 @@ GraphQL/MaxDepthSchema:
 
 GraphQL/GraphqlName:
   Enabled: false
+
+GraphQL/ObjectDescription:
+  Enabled: false

@@ -1,4 +1,4 @@
-module Consoles
+module Fronts
   module Auths
     class SignInService
       include Interactor::Organizer

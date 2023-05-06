@@ -1,7 +1,7 @@
 import { createApp, provide, h } from "vue";
 
 import { DefaultApolloClient } from "@vue/apollo-composable";
-import { apolloClient } from "@/apollo-client";
+import { apolloClient } from "@/apis/apollo-client";
 
 import { createWebHistory } from "vue-router";
 
