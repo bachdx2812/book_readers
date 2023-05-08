@@ -2,6 +2,8 @@ import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client/core";
 import { onError } from "@apollo/client/link/error";
 import { setContext } from "@apollo/client/link/context";
 
+import { ApolloLink, from } from "apollo-link";
+
 import { useAuthStore } from "@/stores/auth";
 import { useGlobalStore } from "@/stores/global";
 
@@ -22,6 +24,20 @@ const authLink = setContext((_, { headers }) => {
       "Book-Club-Authorization": token ? `Bearer ${token}` : "", // set the Authorization header with the token
     },
   };
+});
+
+const helperLink = new ApolloLink((operation, forward) => {
+  // Before the request called
+  operation.setContext(() => {
+    // ctx.store.dispatch("global/setFetchingState", true);
+  });
+
+  // After the request called
+  return forward(operation).map((data) => {
+    // ctx.store.dispatch("global/setFetchingState", false);
+
+    return data;
+  });
 });
 
 const errorLink = onError((error) => {
@@ -115,5 +131,5 @@ const errorHandler = (error) => {
 // Create the apollo client
 export const apolloClient = new ApolloClient({
   cache: new InMemoryCache(),
-  link: errorLink.concat(authLink).concat(httpLink),
+  link: errorLink.concat(helperLink).concat(authLink).concat(httpLink),
 });

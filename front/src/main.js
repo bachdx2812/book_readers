@@ -1,13 +1,15 @@
-import { createApp, provide, h } from "vue";
+import { createApp, h } from "vue";
 
 import { DefaultApolloClient } from "@vue/apollo-composable";
 import { apolloClient } from "@/apis/apollo-client";
 
 import { createWebHistory } from "vue-router";
+import createRouter from "./router.js";
 
 import { createPinia } from "pinia";
 
-import createRouter from "./router.js";
+import { gqlMutate } from "@/plugins/gqlFunc";
+
 import App from "./App.vue";
 
 import "./style.css";

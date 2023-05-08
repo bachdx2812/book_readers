@@ -1,8 +1,12 @@
 <template>
-  <component :is="layout">
-    {{ layout }}
-    <router-view></router-view>
-  </component>
+  <div>
+    <Loading></Loading>
+    <component :is="layout">
+
+      {{ layout }}
+      <router-view></router-view>
+    </component>
+  </div>
 </template>
 
 <script>
@@ -11,10 +15,13 @@ import { storeToRefs } from 'pinia'
 
 import { useAuthStore } from '@/stores/auth';
 
+import Loading from "@/components/shared/Loading.vue";
+
 export default {
   components: {
     DefaultLayout: defineAsyncComponent(() => import('@/layouts/DefaultLayout.vue')),
-    AuthLayout: defineAsyncComponent(() => import('@/layouts/AuthLayout.vue'))
+    AuthLayout: defineAsyncComponent(() => import('@/layouts/AuthLayout.vue')),
+    Loading: Loading
   },
 
   setup() {
