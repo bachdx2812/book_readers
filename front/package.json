@@ -21,6 +21,7 @@
     "graphql-tag": "^2.12.6",
     "lodash": "^4.17.21",
     "pinia": "^2.0.35",
+    "toastify-js": "^1.12.0",
     "vue": "^3.2.47",
     "vue-router": "4"
   },

@@ -2,12 +2,14 @@ import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client/core";
 import { onError } from "@apollo/client/link/error";
 import { setContext } from "@apollo/client/link/context";
 
-import { ApolloLink, from } from "apollo-link";
+import { ApolloLink } from "apollo-link";
 
 import { useAuthStore } from "@/stores/auth";
 import { useGlobalStore } from "@/stores/global";
 
 import { get } from "lodash";
+
+import Toastify from "toastify-js";
 
 // Create an http link:
 const httpLink = new HttpLink({
@@ -27,14 +29,34 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const helperLink = new ApolloLink((operation, forward) => {
-  // Before the request called
+  const globalStore = useGlobalStore();
+  const useLoading = globalStore.useLoading;
+
+  // Before the request is called
   operation.setContext(() => {
-    // ctx.store.dispatch("global/setFetchingState", true);
+    if (useLoading) {
+      globalStore.setLoading(true);
+    }
   });
 
-  // After the request called
+  // After the request is called
   return forward(operation).map((data) => {
-    // ctx.store.dispatch("global/setFetchingState", false);
+    globalStore.setLoading(false);
+
+    // Toastify({
+    //   text: "This is a toast",
+    //   duration: 3000,
+    //   destination: "https://github.com/apvarun/toastify-js",
+    //   newWindow: true,
+    //   close: true,
+    //   gravity: "top", // `top` or `bottom`
+    //   position: "left", // `left`, `center` or `right`
+    //   stopOnFocus: true, // Prevents dismissing of toast on hover
+    //   style: {
+    //     background: "linear-gradient(to right, #00b09b, #96c93d)",
+    //   },
+    //   onClick: function () {}, // Callback after click
+    // }).showToast();
 
     return data;
   });

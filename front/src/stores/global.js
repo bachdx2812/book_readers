@@ -6,7 +6,12 @@ import { get } from "lodash";
 export const useGlobalStore = defineStore("global", () => {
   const validationErrors = ref({});
   const errorMessage = ref("");
+
+  const useLoading = ref(false);
   const loading = ref(false);
+
+  const useToast = ref(false);
+  const toast = ref(false);
 
   function getErrors(name) {
     return get(validationErrors, name, []);
@@ -16,15 +21,33 @@ export const useGlobalStore = defineStore("global", () => {
     errorMessage.value = message;
   }
 
-  function setLoading(loading) {
-    loading.value = loading;
+  function setUseLoading(value) {
+    useLoading.value = value;
   }
+
+  function setLoading(value) {
+    loading.value = value;
+
+    if (!value) {
+      useLoading.value = false;
+    }
+  }
+
+  function setUseToast(value) {
+    useToast.value = value;
+  }
+
+  // function setToast(false) {
+
+  // }
 
   return {
     errorMessage,
     getErrors,
     setErrorMessage,
+    useLoading,
     loading,
+    setUseLoading,
     setLoading,
   };
 });
