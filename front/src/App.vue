@@ -2,8 +2,6 @@
   <div>
     <Loading></Loading>
     <component :is="layout">
-
-      {{ layout }}
       <router-view></router-view>
     </component>
   </div>
