@@ -6,16 +6,10 @@ import { useRouter } from "vue-router";
 
 import { SignInMutation } from "@/apis/mutations";
 
-import { gqlMutate } from "@/plugins/gqlFunc";
+import { gqlMutate } from "@/ultilities/gqlFunc";
 
 export const useAuthStore = defineStore("auth", () => {
-  const { mutate: signIn } = gqlMutate(
-    SignInMutation,
-    {},
-    {
-      loading: true,
-    }
-  );
+  const { mutate: signIn } = gqlMutate(SignInMutation);
 
   const router = useRouter();
 

@@ -9,7 +9,7 @@ import { useGlobalStore } from "@/stores/global";
 
 import { get } from "lodash";
 
-import Toastify from "toastify-js";
+import Toast from "@/ultilities/toast";
 
 // Create an http link:
 const httpLink = new HttpLink({
@@ -31,32 +31,39 @@ const authLink = setContext((_, { headers }) => {
 const helperLink = new ApolloLink((operation, forward) => {
   const globalStore = useGlobalStore();
   const useLoading = globalStore.useLoading;
+  const useToast = globalStore.useToast;
 
   // Before the request is called
   operation.setContext(() => {
     if (useLoading) {
       globalStore.setLoading(true);
     }
+
+    if (useToast) {
+      globalStore.setToast(true);
+    }
   });
 
   // After the request is called
   return forward(operation).map((data) => {
     globalStore.setLoading(false);
+    globalStore.setToast(false);
 
-    // Toastify({
-    //   text: "This is a toast",
-    //   duration: 3000,
-    //   destination: "https://github.com/apvarun/toastify-js",
-    //   newWindow: true,
-    //   close: true,
-    //   gravity: "top", // `top` or `bottom`
-    //   position: "left", // `left`, `center` or `right`
-    //   stopOnFocus: true, // Prevents dismissing of toast on hover
-    //   style: {
-    //     background: "linear-gradient(to right, #00b09b, #96c93d)",
-    //   },
-    //   onClick: function () {}, // Callback after click
-    // }).showToast();
+    if (useToast) {
+      if (data.errors) {
+        console.log("error");
+        const errMessage = get(data, "errors[0].message");
+        Toast.error({ title: errMessage });
+      } else if (data.data) {
+        const successMessage = get(
+          data.data,
+          `${Object.keys(data.data)[0]}.message`
+        );
+
+        console.log(successMessage);
+        Toast.success({ title: successMessage });
+      }
+    }
 
     return data;
   });

@@ -9,7 +9,8 @@ export function gqlMutate(
 ) {
   const globalStore = useGlobalStore();
 
-  globalStore.setUseLoading(options?.loading || false);
+  globalStore.setUseLoading(options?.loading || true);
+  globalStore.setUseToast(options?.toast || true);
 
   return useMutation(gql, {
     ...gqlOptions,

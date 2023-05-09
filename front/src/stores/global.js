@@ -37,17 +37,28 @@ export const useGlobalStore = defineStore("global", () => {
     useToast.value = value;
   }
 
-  // function setToast(false) {
+  function setToast(value) {
+    toast.value = value;
 
-  // }
+    if (!value) {
+      useToast.value = false;
+    }
+  }
 
   return {
+    // Errors Msgs
     errorMessage,
     getErrors,
     setErrorMessage,
+    // Loading
     useLoading,
     loading,
     setUseLoading,
     setLoading,
+    // Toast
+    useToast,
+    toast,
+    setUseToast,
+    setToast,
   };
 });
