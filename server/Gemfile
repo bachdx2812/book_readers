@@ -46,7 +46,6 @@ group :test do
   gem "selenium-webdriver"
   gem "shoulda-matchers", "~> 5.0"
   gem "simplecov", require: false
-  gem "webdrivers"
 end
 
 group :development, :test do
@@ -93,3 +92,8 @@ gem "rack-cors"
 gem "ransack"
 gem "ridgepole"
 gem "uuidtools"
+
+# Crawler
+gem "capybara"
+gem "capybara-selenium"
+gem "webdrivers"
