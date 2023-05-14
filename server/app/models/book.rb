@@ -11,5 +11,8 @@
 #  updated_at     :datetime         not null
 #
 class Book < ApplicationRecord
+  extend FriendlyId
+  friendly_id :title, use: :slugged
+
   has_many :user_books, dependent: :destroy
 end
