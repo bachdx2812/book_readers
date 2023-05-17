@@ -1,12 +1,12 @@
 # Input:
 ## url: String
-#### https://www.fahasa.com/hieu-ve-trai-tim-tai-ban-2023.html
+#### https://tiki.vn/den-starbucks-mua-ca-phe-coc-lon-p720128.html
 # Ouput:
 ## result: BookSource
 
 module Consoles
   module Crawlers
-    class Fahasa < Base
+    class Tiki < Base
       private
 
       def crawl
@@ -16,20 +16,19 @@ module Consoles
         context.session.visit(context.url)
 
         # Find and get `title`
-        main_infos_div = context.session.find(".product-essential")
-        book_source.title = main_infos_div.find("h1").text
+        book_source.title = context.session.find(".header > .title").text
 
         # Find and get `images`
-        main_infos_div.all(".include-in-gallery", visible: :all).each do |gallery_item|
+        images_div = context.session.find(".review-images__list")
+        context.session.all("a > picture").each do |gallery_item|
           book_source.add_image(gallery_item.find("img", visible: :all)["src"]) if gallery_item.has_css?("img", visible: :all)
         end
 
-        # Find and get `author`
-        infos_div = context.session.find("#product_view_info")
-        book_source.author_name = infos_div.find(".data_author").text
+        # Author
+        book_source.author_name = context.session.find(".brand-and-author > h6 > a").text
 
         # Description
-        script_description = 'document.querySelector("#desc_content").innerHTML'
+        script_description = 'document.querySelector("[class^=\"ToggleContent__View\"]").innerHTML'
         book_source.description = context.session.evaluate_script(script_description)
 
         context.result = book_source
