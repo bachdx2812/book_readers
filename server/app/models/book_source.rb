@@ -5,6 +5,7 @@ class BookSource
     @title = ""
     @author_name = ""
     @images = []
+    @description = ""
   end
 
   def add_image(image)

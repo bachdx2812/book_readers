@@ -6,7 +6,7 @@ import { useRouter } from "vue-router";
 
 import { SignInMutation } from "@/apis/mutations";
 
-import { gqlMutate } from "@/ultilities/gqlFunc";
+import { mutate, gqlMutate } from "@/ultilities/gqlFunc";
 
 export const useAuthStore = defineStore("auth", () => {
   const { mutate: signIn } = gqlMutate(SignInMutation);
@@ -24,15 +24,17 @@ export const useAuthStore = defineStore("auth", () => {
     token.value = tokenValue;
   }
 
-  function signInAction(email, password) {
-    signIn({
-      email: email,
-      password: password,
-    }).then(({ data }) => {
-      token.value = data.frontsSignIn.token;
+  async function signInAction(email, password) {
+    const { data } = await mutate(
+      signIn({
+        email: email,
+        password: password,
+      })
+    );
 
-      router.push("/");
-    });
+    token.value = data.signIn.token;
+
+    router.push("/");
   }
 
   return {

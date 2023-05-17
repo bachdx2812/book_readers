@@ -30,26 +30,15 @@ const authLink = setContext((_, { headers }) => {
 
 const helperLink = new ApolloLink((operation, forward) => {
   const globalStore = useGlobalStore();
-  const useLoading = globalStore.useLoading;
-  const useToast = globalStore.useToast;
 
   // Before the request is called
-  operation.setContext(() => {
-    if (useLoading) {
-      globalStore.setLoading(true);
-    }
-
-    if (useToast) {
-      globalStore.setToast(true);
-    }
-  });
+  operation.setContext(() => {});
 
   // After the request is called
   return forward(operation).map((data) => {
     globalStore.setLoading(false);
-    globalStore.setToast(false);
 
-    if (useToast) {
+    if (globalStore.toast) {
       if (data.errors) {
         console.log("error");
         const errMessage = get(data, "errors[0].message");

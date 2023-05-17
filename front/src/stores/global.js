@@ -21,28 +21,12 @@ export const useGlobalStore = defineStore("global", () => {
     errorMessage.value = message;
   }
 
-  function setUseLoading(value) {
-    useLoading.value = value;
-  }
-
   function setLoading(value) {
     loading.value = value;
-
-    if (!value) {
-      useLoading.value = false;
-    }
-  }
-
-  function setUseToast(value) {
-    useToast.value = value;
   }
 
   function setToast(value) {
     toast.value = value;
-
-    if (!value) {
-      useToast.value = false;
-    }
   }
 
   return {
@@ -51,14 +35,10 @@ export const useGlobalStore = defineStore("global", () => {
     getErrors,
     setErrorMessage,
     // Loading
-    useLoading,
     loading,
-    setUseLoading,
     setLoading,
     // Toast
-    useToast,
     toast,
-    setUseToast,
     setToast,
   };
 });
