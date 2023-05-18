@@ -28,8 +28,7 @@ module Consoles
         book_source.author_name = context.session.find(".brand-and-author > h6 > a").text
 
         # Description
-        script_description = 'document.querySelector("[class^=\"ToggleContent__View\"]").innerHTML'
-        book_source.description = context.session.evaluate_script(script_description)
+        book_source.description = context.session.find("[class^=\"ToggleContent__View\"]")['innerHTML']
 
         context.result = book_source
       end
