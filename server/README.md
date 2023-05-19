@@ -1,5 +1,24 @@
 # README
 
+
+### Bundle install
+
+```bash
+bundle install
+```
+
+## DB
+
+```bash
+bundle exec rails db:create
+```
+
+## DB Migration
+
+```bash
+bundle exec rails ridge:apply ALLOW_DROP_TABLE=1 ALLOW_REMOVE_COLUMN=1
+```
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 

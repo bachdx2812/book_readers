@@ -24,9 +24,12 @@ module Consoles
           book_source.add_image(gallery_item.find("img", visible: :all)["src"]) if gallery_item.has_css?("img", visible: :all)
         end
 
-        # Find and get `author` & `description`
+        # Find and get `author`
         infos_div = context.session.find("#product_view_info")
         book_source.author_name = infos_div.find(".data_author").text
+
+        # Description
+        book_source.description = context.session.find("#desc_content")['innerHTML']
 
         context.result = book_source
       end

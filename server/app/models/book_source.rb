@@ -1,5 +1,5 @@
 class BookSource
-  attr_accessor :title, :author_name, :images
+  attr_accessor :title, :author_name, :images, :description
 
   def initialize
     @title = ""
