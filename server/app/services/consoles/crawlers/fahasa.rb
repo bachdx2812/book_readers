@@ -29,7 +29,7 @@ module Consoles
         book_source.author_name = infos_div.find(".data_author").text
 
         # Description
-        book_source.description = context.session.find("#desc_content")['innerHTML']
+        book_source.description = context.session.find("#desc_content")["innerHTML"]
 
         context.result = book_source
       end

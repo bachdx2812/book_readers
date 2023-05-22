@@ -25,7 +25,7 @@ module Consoles
         book_source.author_name = context.session.find(".attributes > ul > li:nth-child(2) > a").text
 
         # Description
-        book_source.description = context.session.find(".bookdetailblockcontent")['innerHTML']
+        book_source.description = context.session.find(".bookdetailblockcontent")["innerHTML"]
 
         context.result = book_source
       end
