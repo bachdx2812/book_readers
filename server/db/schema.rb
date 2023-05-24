@@ -50,6 +50,17 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.index ["slug"], name: "idx_bs_on_slug", unique: true
   end
 
+  create_table "friendly_id_slugs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "slug", null: false
+    t.integer "sluggable_id", null: false
+    t.string "sluggable_type", limit: 50
+    t.string "scope"
+    t.datetime "created_at"
+    t.index ["slug", "sluggable_type", "scope"], name: "fis_on_sluggable_scope", unique: true
+    t.index ["slug", "sluggable_type"], name: "fis_on_slug_type"
+    t.index ["sluggable_type", "sluggable_id"], name: "fis_on_sluggable"
+  end
+
   create_table "user_book_ratings", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "book_id", null: false
