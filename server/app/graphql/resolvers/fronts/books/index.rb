@@ -7,7 +7,7 @@ module Resolvers
 
         argument :input, ::Types::Arguments::PagyInput, required: false, description: "Pagy Input"
 
-        type ::Types::Payloads::Admins::OrderType.pagy_type, null: false
+        type ::Types::Payloads::Fronts::BookType.pagy_type, null: false
 
         def resolve(input: {})
           q = input[:q] || {}
