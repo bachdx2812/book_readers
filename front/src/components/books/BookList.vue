@@ -9,22 +9,25 @@
 
 <script>
 import BookCard from "./BookCard.vue";
-
-import { computed } from "vue";
-import { useQuery } from "@vue/apollo-composable";
-import { getBooksList } from "@/apis/resolvers/books";
+import { ref, onMounted } from "vue";
+import { useBooksStore } from "@/stores/book/index.js";
 
 export default {
   components: {
     BookCard,
   },
   setup() {
-    const { result } = useQuery(getBooksList, { input: {} });
-    const books = computed(() => result.value?.frontsBooks?.collection);
+    const booksStore = useBooksStore();
+
+    const books = ref([]);
+
+    onMounted(async () => {
+      const { data } = await booksStore.fetchBooks({
+        input: {},
+      });
+    });
 
     return { books };
   },
 };
 </script>
-
-<style></style>
