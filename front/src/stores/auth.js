@@ -32,7 +32,7 @@ export const useAuthStore = defineStore("auth", () => {
       })
     );
 
-    token.value = data.signIn.token;
+    token.value = data.frontsSignIn.token;
 
     router.push("/");
   }
