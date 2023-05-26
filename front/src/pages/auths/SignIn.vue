@@ -1,18 +1,38 @@
 <template>
-  <div class="container" id="container">
-    <!-- <form action="#">
-			<h1>Create Account</h1>
-			<input
-				class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-				type="email" placeholder="Name" />
-			<input v-model="email"
-				class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-				type="email" placeholder="Email" />
-			<input v-model="password"
-				class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-				type="password" placeholder="Password" />
-			<button>Sign Up</button>
-		</form> -->
+  <div class="container" :class="{ active: isActive }">
+    <div class="form-container sign-up-container">
+      <form>
+        <h1 class="text-3xl font-bold mb-8">Sign up</h1>
+        <GlobalErrorMessage />
+        <div class="mt-2">
+          <input
+            class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            type="email"
+            placeholder="Name"
+          />
+          <input
+            v-model="email"
+            class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            type="email"
+            placeholder="Email"
+          />
+          <input
+            v-model="password"
+            class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            type="password"
+            placeholder="Password"
+          />
+          <div class="mt-4">
+            <button
+              class="login-btn text-white font-bold py-2 px-4 rounded"
+              type="button"
+            >
+              Sign Up
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
 
     <!-- TODO -->
     <div class="form-container sign-in-container">
@@ -20,39 +40,73 @@
         <h1 class="text-3xl font-bold mb-8">Sign in</h1>
         <GlobalErrorMessage />
         <div class="mt-2">
-          <input v-model="email"
+          <input
+            v-model="email"
             class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            type="email" placeholder="Email" />
-          <input v-model="password"
+            type="email"
+            placeholder="Email"
+          />
+          <input
+            v-model="password"
             class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            type="password" placeholder="Password" />
+            type="password"
+            placeholder="Password"
+          />
         </div>
         <div class="mb-4 w-full">
           <div class="flex items-center justify-between">
             <div class="flex w-1/3 items-center">
-              <input v-model="isChecked" type="checkbox" class="form-checkbox">
+              <input
+                v-model="isChecked"
+                type="checkbox"
+                class="form-checkbox"
+              />
               <span class="ml-2 whitespace-nowrap">Remember me</span>
             </div>
-            <div class="w-1/2"> <a class="whitespace-nowrap inline-block forgot-pwd" href="#">Forgot your
-                password?</a></div>
-
+            <div class="w-1/2">
+              <a class="whitespace-nowrap inline-block forgot-pwd" href="#"
+                >Forgot your password?</a
+              >
+            </div>
           </div>
         </div>
-        <button class="login-btn text-white font-bold py-2 px-4 rounded" type="button"
-          @click="login(email, password)">Sign In</button>
+        <button
+          class="login-btn text-white font-bold py-2 px-4 rounded"
+          type="button"
+          @click="login(email, password)"
+        >
+          Sign in
+        </button>
       </form>
     </div>
     <div class="overlay-container">
-      <div class="overlay bg-cover  bg-image bg-cover bg-fixed"
-        style="background-image: url('https://cdn.discordapp.com/attachments/1094838801895018536/1103054130655797248/bachdx_flat_vector_illustration_depicting_a_group_of_people_rea_055bdfe7-7b34-481f-abf3-0ae1da3f6021.png'); opacity:0.5;">
+      <div
+        class="overlay bg-cover bg-image bg-cover bg-fixed"
+        style="
+          background-image: url('https://cdn.discordapp.com/attachments/1094838801895018536/1103054130655797248/bachdx_flat_vector_illustration_depicting_a_group_of_people_rea_055bdfe7-7b34-481f-abf3-0ae1da3f6021.png');
+        "
+      >
         <div class="overlay-panel overlay-left">
-          <h1>Hello, Friend!</h1>
-          <p>Enter your personal details and start journey with us</p>
-          <button class="ghost" id="signIn">Sign In</button>
-        </div>
-        <div class="overlay-panel overlay-right">
           <h1>Welcome Back!</h1>
           <p>To keep connected with us please login with your personal info</p>
+          <button
+            class="ghost"
+            :class="{ active: isActive }"
+            @click="toggleActive"
+          >
+            Sign In
+          </button>
+        </div>
+        <div class="overlay-panel overlay-right">
+          <h1>Hello, Friend!</h1>
+          <p>Enter your personal details and start journey with us</p>
+          <button
+            class="ghost"
+            :class="{ active: isActive }"
+            @click="toggleActive"
+          >
+            Sign Up
+          </button>
         </div>
       </div>
     </div>
@@ -68,24 +122,31 @@ import GlobalErrorMessage from "@/components/shared/GlobalErrorMessage.vue";
 
 export default {
   components: {
-    GlobalErrorMessage: GlobalErrorMessage
+    GlobalErrorMessage: GlobalErrorMessage,
   },
   setup() {
-    const authStore = useAuthStore()
+    const authStore = useAuthStore();
     const login = authStore.signInAction;
 
     const email = ref("");
-    const password = ref("")
+    const password = ref("");
     const isChecked = ref(false);
+    const isActive = ref(false);
+
+    const toggleActive = () => {
+      isActive.value = !isActive.value;
+    };
 
     return {
       login,
       email,
       password,
       isChecked,
-    }
-  }
-}
+      isActive,
+      toggleActive,
+    };
+  },
+};
 </script>
 
 <style scoped>
@@ -119,9 +180,15 @@ a {
 
 button {
   border-radius: 20px;
-  border: 1px solid #7AD2AC;
-  background-image: linear-gradient(to left top, #7AD2AC, #37BFAF, #00ABB5, #0096BA);
-  color: #FFFFFF;
+  border: 1px solid #7ad2ac;
+  background-image: linear-gradient(
+    to left top,
+    #7ad2ac,
+    #37bfaf,
+    #00abb5,
+    #0096ba
+  );
+  color: #ffffff;
   font-size: 12px;
   font-weight: bold;
   padding: 12px 45px;
@@ -139,7 +206,7 @@ button:focus {
 }
 
 form {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -160,8 +227,7 @@ input {
 .container {
   background-color: #fff;
   border-radius: 10px;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
-    0 10px 10px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   position: relative;
   overflow: hidden;
   width: 768px;
@@ -182,7 +248,7 @@ input {
   z-index: 2;
 }
 
-.container.right-panel-active .sign-in-container {
+.container.active .sign-in-container {
   transform: translateX(100%);
 }
 
@@ -193,7 +259,7 @@ input {
   z-index: 1;
 }
 
-.container.right-panel-active .sign-up-container {
+.container.active .sign-up-container {
   transform: translateX(100%);
   opacity: 1;
   z-index: 5;
@@ -201,7 +267,6 @@ input {
 }
 
 @keyframes show {
-
   0%,
   49.99% {
     opacity: 0;
@@ -226,19 +291,25 @@ input {
   z-index: 100;
 }
 
-.container.right-panel-active .overlay-container {
+.container.active .overlay-container {
   transform: translateX(-100%);
 }
 
 .overlay {
-  background: #FF416C;
-  background: -webkit-linear-gradient(to right, #7AD2AC, #37BFAF, #00ABB5, #0096BA);
-  background: linear-gradient(to right, #7AD2AC, #37BFAF, #00ABB5, #0096BA);
+  background: #ff416c;
+  background: -webkit-linear-gradient(
+    to right,
+    #7ad2ac,
+    #37bfaf,
+    #00abb5,
+    #0096ba
+  );
+  background: linear-gradient(to right, #7ad2ac, #37bfaf, #00abb5, #0096ba);
   opacity: 0.9;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;
-  color: #FFFFFF;
+  color: #ffffff;
   position: relative;
   left: -100%;
   height: 100%;
@@ -247,7 +318,7 @@ input {
   transition: transform 0.6s ease-in-out;
 }
 
-.container.right-panel-active .overlay {
+.container.active .overlay {
   transform: translateX(50%);
 }
 
@@ -270,7 +341,7 @@ input {
   transform: translateX(-20%);
 }
 
-.container.right-panel-active .overlay-left {
+.container.active .overlay-left {
   transform: translateX(0);
 }
 
@@ -279,7 +350,7 @@ input {
   transform: translateX(0);
 }
 
-.container.right-panel-active .overlay-right {
+.container.active .overlay-right {
   transform: translateX(20%);
 }
 
@@ -288,7 +359,7 @@ input {
 }
 
 .social-container a {
-  border: 1px solid #DDDDDD;
+  border: 1px solid #dddddd;
   border-radius: 50%;
   display: inline-flex;
   justify-content: center;
@@ -299,10 +370,17 @@ input {
 }
 
 .login-btn {
-  background-color: linear-gradient(to right, #7AD2AC, #37BFAF, #00ABB5, #0096BA);
+  background-color: linear-gradient(
+    to right,
+    #7ad2ac,
+    #37bfaf,
+    #00abb5,
+    #0096ba
+  );
 }
 
 .forgot-pwd {
   font-size: 12px;
 }
-</style>>
+</style>
+>
