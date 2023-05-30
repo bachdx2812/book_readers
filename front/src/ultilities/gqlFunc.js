@@ -27,11 +27,6 @@ export function mutate(mutateFunc, options = { loading: true, toast: true }) {
   return mutateFunc;
 }
 
-export function fetch(fetchFunc, options = { loading: false, toast: false }) {
-  const globalStore = useGlobalStore();
-
-  globalStore.setLoading(options?.loading);
-  globalStore.setToast(options?.toast);
-
-  return fetchFunc;
+export function fetch(fetchFunc, options = { loading: true, toast: false }) {
+  mutate(fetchFunc, options);
 }
