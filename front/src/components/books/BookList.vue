@@ -9,7 +9,7 @@
 
 <script>
 import BookCard from "./BookCard.vue";
-import { ref, onMounted } from "vue";
+import { onMounted, computed } from "vue";
 import { useBooksStore } from "@/stores/book/index.js";
 
 export default {
@@ -19,10 +19,10 @@ export default {
   setup() {
     const booksStore = useBooksStore();
 
-    const books = ref([]);
+    const books = computed(() => booksStore.books);
 
-    onMounted(async () => {
-      const { data } = await booksStore.fetchBooks({
+    onMounted(() => {
+      booksStore.fetchBooks({
         input: {},
       });
     });

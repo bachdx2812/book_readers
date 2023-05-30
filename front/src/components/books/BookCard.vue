@@ -1,6 +1,10 @@
 <template>
   <div class="bg-white rounded-lg shadow-lg">
-    <img :src="book.imageUrl" :alt="book.title" class="rounded-t-lg" />
+    <img
+      :src="book.imageUrl"
+      :alt="book.title"
+      class="rounded-t-lg book-list-img"
+    />
     <div class="p-4">
       <h2 class="text-xl font-bold mb-2">{{ book.title }}</h2>
       <p class="text-gray-600">{{ book.author }}</p>
@@ -40,4 +44,11 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.book-list-img {
+  object-fit: cover;
+  width: 100%;
+  max-height: 450px;
+  object-position: center;
+}
+</style>
