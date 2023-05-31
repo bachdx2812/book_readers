@@ -4,30 +4,37 @@
     <div class="grid grid-cols-2 gap-4">
       <BookCard v-for="book in books" :key="book.id" :book="book" />
     </div>
+    <Pagination :changePage="changePage" :metaData="metaData" />
   </div>
 </template>
 
 <script>
-import BookCard from "./BookCard.vue";
-import { onMounted, computed } from "vue";
+import BookCard from "@/components/books/BookCard.vue";
+import Pagination from "@/components/shared/Pagination.vue";
+import { onMounted, computed, ref } from "vue";
 import { useBooksStore } from "@/stores/book/index.js";
 
 export default {
   components: {
     BookCard,
+    Pagination,
   },
   setup() {
     const booksStore = useBooksStore();
 
     const books = computed(() => booksStore.books);
 
+    const metaData = computed(() => booksStore.metaData);
+
+    const changePage = (page) => {
+      booksStore.setQuery({ page: page });
+    };
+
     onMounted(() => {
-      booksStore.fetchBooks({
-        input: {},
-      });
+      booksStore.fetchBooks();
     });
 
-    return { books };
+    return { books, changePage, metaData };
   },
 };
 </script>

@@ -4,7 +4,13 @@ import { gqlQuery, fetch } from "@/ultilities/gqlFunc";
 import { getBooksList } from "@/apis/resolvers/books";
 
 export const useBooksStore = defineStore("books", () => {
-  const variables = ref();
+  const query = ref({
+    page: 1,
+    perPage: 4,
+    q: {},
+  });
+
+  const variables = ref({ input: query.value });
 
   const fetchBooksList = gqlQuery(getBooksList, variables);
 
@@ -12,13 +18,22 @@ export const useBooksStore = defineStore("books", () => {
     () => fetchBooksList.result?.value?.frontsBooks.collection ?? []
   );
 
-  function fetchBooks(params) {
-    variables.value = params;
+  const metaData = computed(
+    () => fetchBooksList.result?.value?.frontsBooks.metadata ?? {}
+  );
+
+  function setQuery(params) {
+    Object.assign(query.value, params);
+  }
+
+  function fetchBooks() {
     fetch(fetchBooksList.load());
   }
 
   return {
     fetchBooks,
     books,
+    metaData,
+    setQuery,
   };
 });

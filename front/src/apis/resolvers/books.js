@@ -10,6 +10,7 @@ export const getBooksList = gql`
         imageUrl
         description
       }
+      metadata
     }
   }
 `;
