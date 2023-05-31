@@ -14,7 +14,7 @@ module Consoles
 
         # Visit URL
         context.session.visit(context.url)
-        
+
         # Find and get `title`
         book_source.title = context.session.find(".des-detail > h1.title").text
 
@@ -25,7 +25,7 @@ module Consoles
         book_source.author_name = context.session.find(".author-list > a > h2.author").text
 
         # Description
-        book_source.description = context.session.find(".des-des")['innerHTML']
+        book_source.description = context.session.find(".des-des")["innerHTML"]
 
         context.result = book_source
       end

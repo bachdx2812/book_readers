@@ -8,6 +8,7 @@ module Resolvers
         argument :slug, String, required: true, description: "Book Slug"
 
         def resolve(slug:)
+          Book.friendly.find(slug)
         end
       end
     end
