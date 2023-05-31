@@ -42,11 +42,13 @@ ActiveRecord::Schema[7.0].define(version: 0) do
   create_table "books", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "title"
     t.text "description"
+    t.string "author"
+    t.string "image_url"
     t.string "slug", null: false
     t.datetime "published_date"
+    t.integer "lock_version", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "lock_version", null: false
     t.index ["slug"], name: "idx_bs_on_slug", unique: true
   end
 

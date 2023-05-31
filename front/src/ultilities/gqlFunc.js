@@ -1,4 +1,4 @@
-import { useMutation } from "@vue/apollo-composable";
+import { useMutation, useLazyQuery } from "@vue/apollo-composable";
 
 import { useGlobalStore } from "@/stores/global";
 
@@ -9,6 +9,15 @@ export function gqlMutate(gql, gqlOptions = {}) {
   });
 }
 
+export function gqlQuery(gql, gqlOptions = {}) {
+  return useLazyQuery(
+    gql,
+    gqlOptions,
+
+    { fetchPolicy: "cache-and-network" }
+  );
+}
+
 export function mutate(mutateFunc, options = { loading: true, toast: true }) {
   const globalStore = useGlobalStore();
 
@@ -16,4 +25,8 @@ export function mutate(mutateFunc, options = { loading: true, toast: true }) {
   globalStore.setToast(options?.toast);
 
   return mutateFunc;
+}
+
+export function fetch(fetchFunc, options = { loading: true, toast: false }) {
+  mutate(fetchFunc, options);
 }
