@@ -44,9 +44,9 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.text "description"
     t.string "slug", null: false
     t.datetime "published_date"
+    t.integer "lock_version", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "lock_version", null: false
     t.index ["slug"], name: "idx_bs_on_slug", unique: true
   end
 
@@ -59,6 +59,10 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.index ["slug", "sluggable_type", "scope"], name: "fis_on_sluggable_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "fis_on_slug_type"
     t.index ["sluggable_type", "sluggable_id"], name: "fis_on_sluggable"
+  end
+
+  create_table "test", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "title"
   end
 
   create_table "user_book_ratings", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
