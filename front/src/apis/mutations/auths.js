@@ -8,3 +8,11 @@ export const SignInMutation = gql`
     }
   }
 `;
+
+export const Register = gql`
+mutation ($input: SignUpInput!) {
+  signUp (input: $input) {
+   message
+  }
+ }
+`

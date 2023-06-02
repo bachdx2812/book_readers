@@ -4,12 +4,13 @@ import { useLocalStorage } from "@vueuse/core";
 
 import { useRouter } from "vue-router";
 
-import { SignInMutation } from "@/apis/mutations";
+import { SignInMutation, Register } from "@/apis/mutations";
 
 import { mutate, gqlMutate } from "@/ultilities/gqlFunc";
 
 export const useAuthStore = defineStore("auth", () => {
   const { mutate: signIn } = gqlMutate(SignInMutation);
+  const { mutate: register } = gqlMutate(Register);
 
   const router = useRouter();
 
@@ -37,10 +38,20 @@ export const useAuthStore = defineStore("auth", () => {
     router.push("/");
   }
 
+  async function SignUp(payload) {
+    const resgisterUser = await mutate(
+      register({
+        input: payload,
+      })
+    );
+    return resgisterUser;
+  }
+
   return {
     token,
     setToken,
     layout,
     signInAction,
+    SignUp,
   };
 });
