@@ -5,17 +5,19 @@ module Resolvers
         graphql_name "ConsolesBookCrawl"
         description "ConsolesBookCrawl"
 
-        argument :type, String, required: true, description: "Type link to crawl"
-        argument :url, String, required: true, description: "URL of book to crawl"
+        argument :input, [::Types::Arguments::CrawlerInput], required: false, description: "Crawler input"
 
-        type ::Types::Payloads::Consoles::BookType, null: true
+        type String, null: true
 
-        def resolve(url:, type:)
-          service = ::Consoles::Books::CrawlDataService.call(url:, type:)
+        def resolve(input:)
+          result = ::Books::CrawlBooksJob.perform_now(input)
 
-          if service.success? && service.data.present?
-            service.data
+          if result
+            I18n.t("actions.books.crawl.success")
+          else
+            I18n.t("actions.books.crawl.failed")
           end
+          # TODO return number of book -> crawl success, failed
         end
       end
     end

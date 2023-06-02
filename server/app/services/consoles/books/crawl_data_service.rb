@@ -17,7 +17,19 @@ module Consoles
                     Consoles::Crawlers::Vinabook.call(url: context.url)
                   end
 
-        context.data = service.result if service.success?
+        if service&.success?
+          # create book with status draft
+          blobs = Consoles::Books::CrawlImageService.call(urls: service.result.images)
+
+          book = Book.create!(
+            title: service.result.title,
+            description: service.result.description,
+            author_name: service.result.author_name,
+            status: :draft,
+          )
+
+          book.images.attach(blobs.images)
+        end
       end
     end
   end

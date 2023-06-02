@@ -42,6 +42,8 @@ ActiveRecord::Schema[7.0].define(version: 0) do
   create_table "books", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "title"
     t.text "description"
+    t.string "author_name"
+    t.integer "status", default: 1
     t.string "slug", null: false
     t.datetime "published_date"
     t.datetime "created_at", null: false

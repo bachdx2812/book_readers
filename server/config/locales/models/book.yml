@@ -1,0 +1,15 @@
+vi:
+  activerecord:
+    attributes:
+      book: &book_attributes
+        title: Tiêu đề
+        description: Miêu tả
+        author_name: Tên tác giả
+        status: Trạng thái
+        slug: Slug
+        published_date: Ngày phát hành
+  actions:
+    books:
+      crawl:
+        success: Thành công!
+        failed: Thất bại!

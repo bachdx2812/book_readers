@@ -6,7 +6,7 @@
 #  birthday           :date
 #  email              :string(255)      not null
 #  encrypted_password :string(255)      not null
-#  gender             :integer          default(0), not null
+#  gender             :integer          default("unknown"), not null
 #  lock_version       :integer          not null
 #  secret_jwt_key     :string(255)
 #  created_at         :datetime         not null
