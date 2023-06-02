@@ -10,7 +10,7 @@ import { mutate, gqlMutate } from "@/ultilities/gqlFunc";
 
 export const useAuthStore = defineStore("auth", () => {
   const { mutate: signIn } = gqlMutate(SignInMutation);
-  const {mutate : register} = gqlMutate(Register)
+  const { mutate: register } = gqlMutate(Register);
 
   const router = useRouter();
 
@@ -38,19 +38,13 @@ export const useAuthStore = defineStore("auth", () => {
     router.push("/");
   }
 
-  async function SignUp(email ,password, birthday ,gender) {
+  async function SignUp(payload) {
     const resgisterUser = await mutate(
       register({
-        input: {
-          email: email,
-          password: password,
-          birthday: birthday,
-          gender: gender,
-       
-        }
+        input: payload,
       })
-    )
-    return resgisterUser
+    );
+    return resgisterUser;
   }
 
   return {
@@ -58,6 +52,6 @@ export const useAuthStore = defineStore("auth", () => {
     setToken,
     layout,
     signInAction,
-    SignUp
+    SignUp,
   };
 });

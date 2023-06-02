@@ -52,7 +52,7 @@
         <button
           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="button"
-          @click="register(email, password, birthday, gender )"
+          @click="SignUpT"
         >
           Sign Up
         </button>
@@ -73,26 +73,28 @@ export default {
   },
   setup() {
     const authStore = useAuthStore();
-    const register = authStore.SignUp;
 
     const email = ref("");
     const password = ref("");
     const gender = ref("");
     const birthday = ref("");
 
-    async function SignUp() {
-const params = authStore.SignUp({
-  email: email, password:
-
-});
+    async function SignUpT() {
+      const params = authStore.SignUp({
+        email: email.value,
+        password: password.value,
+        gender: gender.value,
+        birthday: birthday.value,
+      });
+      return params;
     }
 
     return {
-      register,
       email,
       gender,
       birthday,
       password,
+      SignUpT,
     };
   },
 };
