@@ -13,9 +13,7 @@ module Mutations
               message: "success",
             }
           else
-            {
-              message: "Subscription failed",
-            }
+            execution_error(message: 'failed', errors: form.errors )
           end
         end
       end

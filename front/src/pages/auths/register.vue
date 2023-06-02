@@ -31,12 +31,11 @@
         <label class="block text-gray-700 font-bold mb-2" for="password">
           Gender
         </label>
-        <input
-          v-model="gender"
-          class="appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-          id="password"
-          type="number"
-        />
+        <select v-model="gender" name="gender" id="gender">
+          <option value="">--Please choose an option--</option>
+          <option value="1">Male</option>
+          <option value="2">Female</option>
+        </select>
       </div>
       <div class="mb-6">
         <label class="block text-gray-700 font-bold mb-2" for="password">
@@ -45,7 +44,7 @@
         <input
           v-model="birthday"
           class="appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-          type="text"
+          type="date"
         />
       </div>
       <div class="flex items-center justify-between">
@@ -76,7 +75,7 @@ export default {
 
     const email = ref("");
     const password = ref("");
-    const gender = ref("");
+    const gender = ref(1);
     const birthday = ref("");
 
     async function SignUpT() {
@@ -86,6 +85,7 @@ export default {
         gender: gender.value,
         birthday: birthday.value,
       });
+      console.log(gender.value);
       return params;
     }
 
