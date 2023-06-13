@@ -96,4 +96,5 @@ gem "uuidtools"
 # Crawler
 gem "capybara"
 gem "capybara-selenium"
+gem "open-uri"
 gem "webdrivers"

@@ -19,6 +19,12 @@ bundle exec rails db:create
 bundle exec rails ridge:apply ALLOW_DROP_TABLE=1 ALLOW_REMOVE_COLUMN=1
 ```
 
+## Annotation ( For development only )
+
+```bash
+bundle exec rake remove_annotation && bundle exec rake annotate_models
+```
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 

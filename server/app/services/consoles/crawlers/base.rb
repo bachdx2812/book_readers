@@ -33,7 +33,8 @@ module Consoles
       end
 
       def init_driver_and_session
-        context.driver = ENV["CRAWLER_DEBUGGING"] ? :chrome : :headless_chrome
+        # context.driver = ENV["CRAWLER_DEBUGGING"] ? :chrome : :headless_chrome
+        context.driver = :headless_chrome
         context.session = Capybara::Session.new(context.driver)
       end
 

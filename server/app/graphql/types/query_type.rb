@@ -6,5 +6,6 @@ module Types
     include GraphQL::Types::Relay::HasNodesField
 
     include Resolvers::Consoles::Users
+    include Resolvers::Consoles::Books
   end
 end

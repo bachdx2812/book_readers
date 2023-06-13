@@ -1,0 +1,5 @@
+:verbose: true
+:concurrency: <%= ENV.fetch("DB_POOL", 10).to_i - 2 %>
+:pool: <%= ENV.fetch("DB_POOL", 10) %>
+:queues:
+  - [default, 5]
